@@ -1,14 +1,7 @@
-function createStore(reducer) {
-  let state = 0;
-
-  const getState = () => (state);
-
-  const dispatch = (action) => {
-    state = reducer(state, action);
-  };
-
-  return {
-    getState,
-    dispatch,
-  };
-}
+import * as React from 'react';
+import Navigator from './screens/routes/HomeStack';
+import WelcomeScreen from './screens/welcomescreen';
+export default function App() {
+  return <Navigator />
+  
+  }
