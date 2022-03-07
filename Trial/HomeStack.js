@@ -1,30 +1,29 @@
-import {createStackNavigator} from 'react-navigation-stack';
-import {createAppContainer} from 'react-navigation';
-import WelcomeScreen from '../welcomescreen';
-import HomeScreen from '../HomeScreen';
-import GetDirections from '../GetDirections';
-
+import { createStackNavigator } from "react-navigation-stack";
+import { createAppContainer } from "react-navigation";
+import WelcomeScreen from "../welcomescreen";
+import HomeScreen from "../HomeScreen";
+import GetDirections from "../GetDirections";
 
 const screens = {
-  WelcomeScreen:{
+  WelcomeScreen: {
     screen: WelcomeScreen,
     navigationOptions: {
-      title: 'Welcome to MTR Exit Finder'
-    }
+      title: "Welcome to MTR Exit Finder",
+    },
   },
-  HomeScreen:{
-      screen: HomeScreen,
-      navigationOptions:{
-        title: 'Where are you going?'
-      }
+  HomeScreen: {
+    screen: HomeScreen,
+    navigationOptions: {
+      title: "Where are you going?",
+    },
   },
   GetDirections: {
-      screen: GetDirections,
-      navigationOptions:{
-        title: 'Follow these directions'
-      }
-  }
-}
+    screen: GetDirections,
+    navigationOptions: {
+      title: "Follow these directions",
+    },
+  },
+};
 
 const HomeStack = createStackNavigator(screens);
 
