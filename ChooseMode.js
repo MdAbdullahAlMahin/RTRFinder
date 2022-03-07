@@ -1,28 +1,31 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Text, SafeAreaView, TextInput} from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, SafeAreaView, TextInput, FlatList} from 'react-native';
 
-export default function Location({navigation}) {
-    const [location, SetLocation] = useState('');
+export default function ChooseMode({navigation}) {
+    const [mode, SetMode] = useState('');
+    const [location, Setlocation] = useState(navigation.getParam('loc'));
+    const [exit, Setexit] = useState(navigation.getParam('exit'));
+
     const onPressHandle = (value) => {
-      SetLocation((value) => {
+        SetMode((value) => {
         return [
           (value)
         ]
       });
     }
     const nextpage = () => {
-      navigation.navigate('Exit',{location})
+      navigation.navigate('GetDirections',{mode, location, exit})
     }
     return (
     <SafeAreaView style={styles.container}>
         <StatusBar style="auto" />
-        <Text style={padding(0,0,10,0)}>Enter your location</Text>
+        <Text style={padding(0,0,10,0)}>{navigation.getParam('loc')} Exit {navigation.getParam('exit')}: @Mahin put the mode choices here</Text>
         <TextInput style={styles.input}
             name = 'location'
-            placeholder='e.g. Kennedy Town'
-            onChangeText = {(value)=>SetLocation(value)}
+            placeholder='e.g. Elevator / Stairs / Escalator'
+            onChangeText = {(value)=>SetMode(value)}
         />
         <TouchableOpacity 
               style ={styles.button}
