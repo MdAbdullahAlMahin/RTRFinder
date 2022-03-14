@@ -1,33 +1,17 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, SafeAreaView } from "react-native";
 import { useState } from "react";
-import { StyleSheet, TouchableOpacity, Text, SafeAreaView } from "react-native";
 
-export default function NearExit({ navigation }) {
-  const [loc, Setloc] = useState(navigation.getParam("Loc"));
-  const [exit, Setexit] = useState(navigation.getParam("Exit"));
-
-  const nextpage = () => {
-    navigation.navigate("ChooseMode", { loc, exit });
-  };
+export default function GetDirections({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <Text style={padding(0, 0, 10, 0)}>
-        {navigation.getParam("Loc")} Exit {navigation.getParam("Exit")}:
+        Directions to {navigation.getParam("location")} Exit{" "}
+        {navigation.getParam("exit")} by {navigation.getParam("mode")} @mahin:
+        enter the directions here
       </Text>
-      <Text style={padding(0, 0, 10, 0)}>
-        @mahin: enter data about what is around this exit
-      </Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          nextpage();
-        }}
-        activeOpacity={0.5}
-      >
-        <Text>Next</Text>
-      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -39,6 +23,7 @@ function padding(a, b, c, d) {
     paddingLeft: d ? d : b ? b : a,
   };
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -51,7 +36,7 @@ const styles = StyleSheet.create({
     borderColor: "#777",
     padding: 8,
     margin: 10,
-    width: 200,
+    width: 300,
   },
   button: {
     width: 130,
