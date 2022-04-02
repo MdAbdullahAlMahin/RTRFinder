@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import ChooseStepSize from "./Components/ChooseStepSize.js";
 import Instructions from "./Components/Instructions.js";
+import Instructions2 from "./Components/Instructions2.js";
 import HomePage from "./Components/HomePage.js";
 import Settings from "./Components/Settings.js";
 import SelectStation from "./Components/SelectStation.js";
@@ -23,6 +24,7 @@ export default function App() {
         }}
       >
         <Stack.Screen name="Instructions" component={Instructions} />
+        <Stack.Screen name="Instructions2" component={Instructions2} />
         <Stack.Screen name="Choose Step Size" component={ChooseStepSize} />
         <Stack.Screen name="Home" component={HomePage} />
         <Stack.Screen name="Settings" component={Settings} />
