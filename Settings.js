@@ -9,80 +9,98 @@ import {
   Alert,
   TextInput,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 
 const Settings = ({ navigation }) => {
   return (
-    <SafeAreaView style = {styles.container}>
-      <View style = {styles.parent2}>
-      <TouchableOpacity 
-      activeOpacity={0.5}
-      style = {styles.buttontemp}
-      onPress={() => {navigation.navigate("Home")}}>
-            <Text style={styles.text}>Back to Home</Text>
-            </TouchableOpacity>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.parent2}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.button2}
+          onPress={() => {
+            navigation.navigate("Home");
+          }}
+        >
+          <Text style={styles.text}>Back to Home</Text>
+        </TouchableOpacity>
       </View>
-      <View style = {styles.parent}>
-                  <TouchableOpacity 
-      activeOpacity={0.5}
-      style = {styles.button}
-      onPress={() => {navigation.navigate("Choose Step Size")}}>
-            <Text style={styles.text}>Change Step Size</Text>
-            </TouchableOpacity>
-      <TouchableOpacity 
-      activeOpacity={0.5}
-      style = {styles.button}
-      onPress={() => {navigation.navigate("Instructions")}}>
-            <Text style={styles.text}>Instructions</Text>
-            </TouchableOpacity>
-            </View>
+
+      <View style={styles.parent}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate("Choose Step Size");
+          }}
+        >
+          <Text style={styles.text}>Change Step Size</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate("Instructions2");
+          }}
+        >
+          <Text style={styles.text}>Instructions</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: '100%',
+    alignContent:'center',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   parent: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
+    position: "absolute",
+    bottom: 15,
   },
   parent2: {
-    paddingBottom: 20,
-    paddingTop: 20,
-    alignItems: 'center',
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    position: "absolute",
+    top: 50
+  },
+  button2: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    backgroundColor: "#1167b1",
+    borderColor: "white",
+    height: 50,
+    width: "95%",
   },
   button: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 10,
-    backgroundColor: '#1167b1',
+    backgroundColor: "#1167b1",
     paddingVertical: 12,
     paddingHorizontal: 32,
-    borderColor: 'white',
+    borderColor: "white",
     height: 50,
-    width: '46%',
-    padding: 18
+    width: "48%",
+    padding: 18,
   },
   text: {
-    fontSize: 14,
+    fontSize: 13.5,
     lineHeight: 21,
-    fontFamily: 'Helvetica',
+    // fontFamily: "Helvetica",
+    // arial,
     letterSpacing: 0.25,
-    color: 'white',
+    color: "white",
   },
-  buttontemp: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-    backgroundColor: '#1167b1',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderColor: 'white',
-    height: 50,
-    width: '95%',
-  },
+  footer: {},
 });
 export default Settings;
