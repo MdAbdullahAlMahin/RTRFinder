@@ -12,7 +12,7 @@ import {
   FlatList,
 } from "react-native";
 
-const Instructions = ({ navigation }) => {
+const Instructions2 = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View>
@@ -53,15 +53,14 @@ const Instructions = ({ navigation }) => {
         <TouchableOpacity
           activeOpacity={0.5}
           style={styles.button}
-          onPress={() => navigation.navigate("Choose Step Size")}
+          onPress={() => navigation.navigate("Settings")}
         >
-          <Text style={styles.text}>Enter Step Size</Text>
+          <Text style={styles.text}>Go Back</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     height: "100%",
@@ -111,5 +110,4 @@ const styles = StyleSheet.create({
     margin: 19,
   },
 });
-
-export default Instructions;
+export default Instructions2;

@@ -9,6 +9,7 @@ import {
   Alert,
   TextInput,
   FlatList,
+  TouchableOpacity,
 } from "react-native";
 import { stationExists, useSpecs } from "../Helpers/UseSpecs";
 const SelectExit = ({ route, navigation }) => {
@@ -26,26 +27,34 @@ const SelectExit = ({ route, navigation }) => {
     set_exit_number(num);
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <View>
-        <Text>Which exit do you wish to leave at?</Text>
-        <Text>
-          You may go back to the last page by clicking on the bottom left, or //
-          proceed by submitting your step size on the bottom left.
+        <Text style={styles.normaltext}>
+          Which exit do you wish to leave at?
         </Text>
-        <View>
-          <Button title="Previous Exit" onPress={() => update_exit(-1)} />
-          <Text>Exit {exits[exit_number]}</Text>
-          <Button title="Next Exit" onPress={() => update_exit(1)} />
-        </View>
-        <Button
-          title="Go Back"
+      </View>
+      <View>
+        <Text style={styles.normaltext}>Exit {exits[exit_number]}</Text>
+      </View>
+      <View style={styles.parent}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.button}
           onPress={() =>
             navigation.navigate("Select Station", { stepSize: stepSize })
           }
-        />
-        <Button
-          title="Submit"
+        >
+          <Text style={styles.text}>Back</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.button}
+          onPress={() => update_exit(+1)}
+        >
+          <Text style={styles.text}>Change Exit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
           onPress={() =>
             navigation.navigate("Nearby Places", {
               stepSize,
@@ -53,9 +62,51 @@ const SelectExit = ({ route, navigation }) => {
               exit: exits[exit_number],
             })
           }
-        />
+        >
+          <Text style={styles.text}>Submit</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 };
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  parent: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    backgroundColor: "#1167b1",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderColor: "white",
+    height: 50,
+    width: "30%",
+    padding: 18,
+  },
+  text: {
+    fontSize: 14,
+    lineHeight: 21,
+    // fontFamily: "Helvetica",
+    // arial,
+    letterSpacing: 0.25,
+    color: "white",
+  },
+  normaltext: {
+    fontSize: 16,
+    lineHeight: 21,
+    // fontFamily: "Helvetica",
+    // arial,
+    letterSpacing: 0.25,
+    color: "black",
+    textAlign: "center",
+    marginBottom: 15,
+  },
+});
 export default SelectExit;

@@ -7,11 +7,13 @@ import {
   Text,
   Alert,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
+
 const Directions = ({ route, navigation }) => {
-  const { dir } = route.params;
+  const { dir, stepSize, station, exit } = route.params;
   const directions = [
-    "Starting your journey, press the buttons on the bottom to go the next instruction or go back to the previous instruction \nPress the buttons at the top to end your journey prematurely and go back to the Homepage, or call a helpline at #number \nYou may also back to station selection by pressing the bottom left button on this page",
+    "Start Journey Now",
     ...dir,
     "Congrats, you made it!\nClick the bottom right button to go back to the Homepage",
   ];
@@ -19,38 +21,106 @@ const Directions = ({ route, navigation }) => {
   const update_curr = (dir) => {
     var num = curr + dir;
     if (num < 0) {
-      num = 0;
+      navigation.navigate("Select Type Of Exit", { stepSize, station, exit });
     } else if (num >= directions.length) {
       navigation.navigate("Home");
     }
     set_curr(num);
   };
   return (
-    <SafeAreaView>
-      <View>
-        <Button title="Call for Help" />
+    <SafeAreaView style={styles.container}>
+      <View style={styles.parent}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.button}
+          onPress={() => navigation.navigate("Home")}
+        >
+          <Text style={styles.text}>Call for Help</Text>
+        </TouchableOpacity>
         {curr != directions.length - 1 ? (
-          <Button
-            title="End Journey Early"
+          <TouchableOpacity
+            activeOpacity={0.5}
+            style={styles.button}
             onPress={() => navigation.navigate("Home")}
-          />
+          >
+            <Text style={styles.text}>End Journey Early</Text>
+          </TouchableOpacity>
         ) : null}
       </View>
       <View>
-        <Text>{directions[curr]}</Text>
+        <Text style={styles.normaltext}>{directions[curr]}</Text>
       </View>
-      {curr !== 0 ? (
-        <Button title="Previous Instruction" onPress={() => update_curr(-1)} />
-      ) : null}
-
-      <Button
-        title={
-          curr === directions.length - 1 ? "End Journey" : "Next Instruction"
-        }
-        onPress={() => update_curr(1)}
-      />
+      <View style={styles.parent}>
+        {curr !== 0 ? (
+          <TouchableOpacity
+            activeOpacity={0.5}
+            style={styles.button}
+            onPress={() => update_curr(-1)}
+          >
+            <Text style={styles.text}>Previous</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            activeOpacity={0.5}
+            style={styles.button}
+            onPress={() => update_curr(-1)}
+          >
+            <Text style={styles.text}>Go Back</Text>
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.button}
+          title={
+            curr === directions.length - 1 ? "End Journey" : "Next Instruction"
+          }
+          onPress={() => update_curr(1)}
+        >
+          <Text style={styles.text}>Next</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  parent: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    backgroundColor: "#1167b1",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderColor: "white",
+    height: 50,
+    width: "46%",
+    padding: 18,
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    // fontFamily: "Helvetica",
+    // arial,
+    letterSpacing: 0.25,
+    color: "white",
+  },
+  normaltext: {
+    fontSize: 16,
+    lineHeight: 21,
+    // fontFamily: "Helvetica",
+    // arial,
+    letterSpacing: 0.25,
+    color: "black",
+    textAlign: "center",
+    marginBottom: 15,
+  },
+});
 export default Directions;
