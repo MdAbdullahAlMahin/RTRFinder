@@ -12,15 +12,27 @@ import {
   TouchableOpacity,
 } from "react-native";
 import useNearbyPlaces from "../Helpers/Places";
+import * as Speech from 'expo-speech'
+
 const NearbyPlaces = ({ route, navigation }) => {
   const { stepSize, station, exit } = route.params;
   const places = useNearbyPlaces(station, exit);
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+              <View style={styles.parent2}>
+      <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.button2}
+          onPress={() => {
+            Speech.speak('bottom right submit, Bottom left back. Speak screen to hear list of places around your exit.')
+          }}
+        >
+          <Text style={styles.text}></Text>
+        </TouchableOpacity>
+        </View>
+        <View style={styles.parent3}></View>
         <Text style={styles.normaltext}>Places near exit {exit}</Text>
-        <View>
           <FlatList
             data={places.map((place) => {
               return { key: place };
@@ -29,16 +41,16 @@ const NearbyPlaces = ({ route, navigation }) => {
               <Text style={styles.normaltext}>{item.key}</Text>
             )}
           />
-          <Text style={styles.normaltext}>
+          <Text style={styles.normaltext2}>
             Are you heading for the correct exit?
           </Text>
-        </View>
         <View style={styles.parent}>
           <TouchableOpacity
             activeOpacity={0.5}
             style={styles.button}
-            onPress={() =>
-              navigation.navigate("Select Exit", { stepSize, station })
+            onPress={() => {
+              navigation.navigate("Select Exit", { stepSize, station });
+              Speech.speak('choose another exit')}
             }
           >
             <Text style={styles.text}>Back</Text>
@@ -46,31 +58,34 @@ const NearbyPlaces = ({ route, navigation }) => {
           <TouchableOpacity
             activeOpacity={0.5}
             style={styles.button}
-            onPress={() =>
+            onPress={() => {
               navigation.navigate("Select Type Of Exit", {
                 stepSize,
                 station,
                 exit,
-              })
+              });
+              Speech.speak('proceed with this exit, speak screen to hear exit choices')}
             }
           >
             <Text style={styles.text}>Proceed</Text>
           </TouchableOpacity>
         </View>
-      </View>
     </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: '100%',
     overflow: "scroll",
+    alignItems: 'center'
   },
   parent: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-around",
     overflow: "scroll",
+    position: 'absolute',
+    bottom: 20,
   },
   button: {
     alignItems: "center",
@@ -92,6 +107,29 @@ const styles = StyleSheet.create({
     letterSpacing: 0.25,
     color: "white",
   },
+  parent2: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    position: "absolute",
+    top: 35,
+    right: 15
+  },
+  parent3: {
+    position: "absolute",
+    top: 90,
+  },
+  button2: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    backgroundColor: "#1167b1",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderColor: "white",
+    width: "20%",
+    height: 50,
+  },
   normaltext: {
     fontSize: 16,
     lineHeight: 21,
@@ -101,6 +139,16 @@ const styles = StyleSheet.create({
     color: "black",
     textAlign: "center",
     marginBottom: 15,
+  },
+  normaltext2: {
+    fontSize: 16,
+    lineHeight: 21,
+    // fontFamily: "Helvetica",
+    // arial,
+    letterSpacing: 0.25,
+    color: "black",
+    textAlign: "center",
+    marginBottom: 40,
   },
   overflow: {},
 });

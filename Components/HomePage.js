@@ -13,6 +13,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import * as Speech from 'expo-speech'
 
 const HomePage = ({ navigation }) => {
   const [stepSize, setStepSize] = useState(0.576);
@@ -28,12 +29,22 @@ const HomePage = ({ navigation }) => {
   }, []);
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+      <View style={styles.parent2}>
+      <TouchableOpacity
+          activeOpacity={0.5}
+          style={styles.button2}
+          onPress={() => {
+            Speech.speak('Welcome. Press the button on the bottom left of the screen to start your journey, or configure your settings by clicking the button on the bottom right.')
+          }}
+        >
+          <Text style={styles.text}></Text>
+        </TouchableOpacity>
+        </View>
+        <View style={styles.parent3}>
         <Text style={styles.normaltext}>Hello there!</Text>
         <Text style={styles.normaltext}>
-          Press the button at the center of the screen to start your journey,
-          you could also configure your settings by clicking on the settings
-          button at the bottom.
+          Press the button on the bottom left of the screen to start your journey,
+          or configure your settings by clicking the button on the bottom right.
         </Text>
       </View>
       <View style={styles.parent}>
@@ -42,13 +53,14 @@ const HomePage = ({ navigation }) => {
           onPress={() => {
             console.log(stepSize);
             navigation.navigate("Select Station", { stepSize: stepSize });
+            Speech.speak('start journey, type in your station')
           }}
         >
           <Text style={styles.text}>Start Journey</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Settings")}
+          onPress={() => {navigation.navigate("Settings"); Speech.speak('Settings')}}
         >
           <Text style={styles.text}>Settings</Text>
         </TouchableOpacity>
@@ -58,12 +70,40 @@ const HomePage = ({ navigation }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: '100%',
+    alignContent:'center',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   parent: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-around",
+    position: "absolute",
+    bottom: 15,
+  },
+  parent2: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    position: "absolute",
+    top: 35,
+    right: 15
+  },
+  parent3: {
+    position: "absolute",
+    top: 90,
+  },
+  button2: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    backgroundColor: "#1167b1",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderColor: "white",
+    width: "20%",
+    height: 50,
   },
   button: {
     alignItems: "center",
@@ -74,7 +114,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderColor: "white",
     height: 50,
-    width: "46%",
+    width: "48%",
     padding: 18,
   },
   text: {

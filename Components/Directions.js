@@ -8,7 +8,9 @@ import {
   Alert,
   TextInput,
   TouchableOpacity,
+  Touchable,
 } from "react-native";
+import * as Speech from 'expo-speech'
 
 const Directions = ({ route, navigation }) => {
   const { dir, stepSize, station, exit } = route.params;
@@ -27,57 +29,62 @@ const Directions = ({ route, navigation }) => {
     }
     set_curr(num);
   };
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.parent}>
+      <View style={styles.container2}>
+      <View style={styles.parent2}>
+        <TouchableOpacity 
+        style={styles.button3}
+        activeOpacity={0.5}
+        onPress={() => {
+          navigation.navigate('Home')
+        }}
+        ><Text style={styles.text}></Text></TouchableOpacity>
+        {curr != directions.length - 1 ? (
+        <TouchableOpacity         
+        style={styles.button3}
+        activeOpacity={0.5}
+        onPress={() => {
+          navigation.navigate('Home')
+        }}
+          ><Text style={styles.text}></Text></TouchableOpacity>
+        ) : null}
         <TouchableOpacity
           activeOpacity={0.5}
-          style={styles.button}
-          onPress={() => navigation.navigate("Home")}
+          style={styles.button3}
+          onPress={() => {
+            Speech.speak('Speak screen to hear instructions on every screen, Bottom left of the screen to go back, bottom right to proceed. On this row, there are three buttons, This button is on the right, Press middle button to end journey, Press left button to call MTR hotline for help.')
+          }}
         >
-          <Text style={styles.text}>Call for Help</Text>
+          <Text style={styles.text}></Text>
         </TouchableOpacity>
-        {curr != directions.length - 1 ? (
-          <TouchableOpacity
-            activeOpacity={0.5}
-            style={styles.button}
-            onPress={() => navigation.navigate("Home")}
-          >
-            <Text style={styles.text}>End Journey Early</Text>
-          </TouchableOpacity>
-        ) : null}
       </View>
-      <View>
+      </View>
+      <View style={styles.parent3}>
         <Text style={styles.normaltext}>{directions[curr]}</Text>
       </View>
+      <View style={styles.container2}>
       <View style={styles.parent}>
         {curr !== 0 ? (
-          <TouchableOpacity
-            activeOpacity={0.5}
+          <TouchableOpacity title='Previous'
             style={styles.button}
-            onPress={() => update_curr(-1)}
-          >
-            <Text style={styles.text}>Previous</Text>
-          </TouchableOpacity>
+            onPress={() => {update_curr(-1); Speech.speak('Previous')}}
+          />
         ) : (
           <TouchableOpacity
-            activeOpacity={0.5}
             style={styles.button}
-            onPress={() => update_curr(-1)}
-          >
-            <Text style={styles.text}>Go Back</Text>
-          </TouchableOpacity>
+            onPress={() => {update_curr(-1); Speech.speak('Back') }}
+          ><Text style={styles.text}></Text></TouchableOpacity>
         )}
-        <TouchableOpacity
-          activeOpacity={0.5}
+        <TouchableOpacity 
           style={styles.button}
           title={
             curr === directions.length - 1 ? "End Journey" : "Next Instruction"
           }
-          onPress={() => update_curr(1)}
-        >
-          <Text style={styles.text}>Next</Text>
-        </TouchableOpacity>
+          onPress={() => {update_curr(1); Speech.speak('Next') }}
+        ></TouchableOpacity>
+      </View>
       </View>
     </SafeAreaView>
   );
@@ -85,12 +92,25 @@ const Directions = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1
+  },
+  container2: {
+    flex:1,
+    alignItems: 'center',
   },
   parent: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-around",
+    position: 'absolute',
+    bottom: 10
+  },
+  parent2: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    position: "absolute",
+    top:10,
   },
   button: {
     alignItems: "center",
@@ -101,8 +121,33 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderColor: "white",
     height: 50,
-    width: "46%",
-    padding: 18,
+    minWidth: '48%',
+  },
+  parent3: {
+    position: "absolute",
+    top: 90,
+  },
+  button2: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    backgroundColor: "#1167b1",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderColor: "white",
+    width: "20%",
+    height: 50,
+  },
+  button3: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    backgroundColor: "#1167b1",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderColor: "white",
+    width: "32%",
+    height: 50,
   },
   text: {
     fontSize: 16,
@@ -120,7 +165,12 @@ const styles = StyleSheet.create({
     letterSpacing: 0.25,
     color: "black",
     textAlign: "center",
-    marginBottom: 15,
+    margin: 20
+  },
+  parent3: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
   },
 });
 export default Directions;

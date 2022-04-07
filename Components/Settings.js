@@ -11,16 +11,19 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
+import * as Speech from 'expo-speech'
+
 
 const Settings = ({ navigation }) => {
   return (
-    <SafeAreaView /*style={styles.container}*/>
+    <SafeAreaView style={styles.container}>
       <View style={styles.parent2}>
         <TouchableOpacity
           activeOpacity={0.5}
-          style={styles.buttontemp}
+          style={styles.button2}
           onPress={() => {
             navigation.navigate("Home");
+              Speech.speak('Back to home')
           }}
         >
           <Text style={styles.text}>Back to Home</Text>
@@ -33,6 +36,7 @@ const Settings = ({ navigation }) => {
           style={styles.button}
           onPress={() => {
             navigation.navigate("Choose Step Size");
+            Speech.speak('Change step size')
           }}
         >
           <Text style={styles.text}>Change Step Size</Text>
@@ -42,6 +46,7 @@ const Settings = ({ navigation }) => {
           style={styles.button}
           onPress={() => {
             navigation.navigate("Instructions2");
+            Speech.speak('Listen to instructions by using speak screen')
           }}
         >
           <Text style={styles.text}>Instructions</Text>
@@ -53,19 +58,33 @@ const Settings = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
-    flex: 1,
-    justifyContent: "flex-end",
+    height: '100%',
+    alignContent:'center',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   parent: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-around",
+    position: "absolute",
+    bottom: 15,
   },
   parent2: {
-    paddingBottom: 20,
-    paddingTop: 20,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    position: "absolute",
+    top: 50
+  },
+  button2: {
     alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    backgroundColor: "#1167b1",
+    borderColor: "white",
+    height: 50,
+    width: "95%",
   },
   button: {
     alignItems: "center",
@@ -76,27 +95,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderColor: "white",
     height: 50,
-    width: "46%",
+    width: "48%",
     padding: 18,
   },
   text: {
-    fontSize: 14,
+    fontSize: 13.5,
     lineHeight: 21,
     // fontFamily: "Helvetica",
     // arial,
     letterSpacing: 0.25,
     color: "white",
-  },
-  buttontemp: {
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
-    backgroundColor: "#1167b1",
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderColor: "white",
-    height: 50,
-    width: "95%",
   },
   footer: {},
 });
