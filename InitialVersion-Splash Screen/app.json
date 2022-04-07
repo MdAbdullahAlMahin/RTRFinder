@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "ProjectMTR",
+    "slug": "ProjectMTR",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/abc.png",
+    "splash": {
+      "image": "./assets/unnamed.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/abc.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
