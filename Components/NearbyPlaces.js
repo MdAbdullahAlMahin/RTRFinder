@@ -34,7 +34,7 @@ const NearbyPlaces = ({ route, navigation }) => {
           <Text style={styles.text}>Speak</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.parent3}></View>
+      <View style={styles.parent3}>
       <Text style={styles.normaltext}>Places near exit {exit}</Text>
       <FlatList
         data={places.map((place) => {
@@ -44,14 +44,18 @@ const NearbyPlaces = ({ route, navigation }) => {
           <Text style={styles.normaltext}>{item.key}</Text>
         )}
       />
+      </View>
+      <View style={styles.parent5}>
       <Text style={styles.normaltext2}>
         Are you heading for the correct exit?
       </Text>
+      </View>
       <View style={styles.parent}>
         <TouchableOpacity
           activeOpacity={0.5}
           style={styles.button}
           onPress={() => {
+            Speech.stop();
             navigation.navigate("Select Exit", { stepSize, station });
             Speech.speak("choose another exit");
           }}
@@ -67,19 +71,21 @@ const NearbyPlaces = ({ route, navigation }) => {
               station,
               exit,
             });
+            Speech.stop();
             Speech.speak(
-              "proceed with this exit, speak screen to hear exit choices"
+              "proceed with this exit"
             );
           }}
         >
           <Text style={styles.text}>Proceed</Text>
         </TouchableOpacity>
-      </View>
+        </View>
     </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     height: "100%",
     overflow: "scroll",
     alignItems: "center",
@@ -90,7 +96,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     overflow: "scroll",
     position: "absolute",
-    bottom: 20,
+    bottom: 15
+  },
+  parent5: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    overflow: "scroll",
+    position: "absolute",
+    bottom: 40
   },
   button: {
     alignItems: "center",
@@ -113,7 +127,6 @@ const styles = StyleSheet.create({
     color: "white",
   },
   parent2: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "space-around",
     position: "absolute",
@@ -121,6 +134,12 @@ const styles = StyleSheet.create({
     right: 15,
   },
   parent3: {
+    height: '85%',
+    position: "absolute",
+    top: 90,
+  },
+  parent4: {
+    flex: 1,
     position: "absolute",
     top: 90,
   },

@@ -53,6 +53,7 @@ const SelectExit = ({ route, navigation }) => {
           activeOpacity={0.5}
           style={styles.button}
           onPress={() => {
+            Speech.stop();
             navigation.navigate("Select Station", { stepSize: stepSize });
             Speech.speak("back to station");
           }}
@@ -64,6 +65,7 @@ const SelectExit = ({ route, navigation }) => {
           style={styles.button}
           onPress={() => {
             update_exit(1);
+            Speech.stop();
             Speech.speak(exits[(exit_number + 1) % exits.length]);
           }}
         >
@@ -77,6 +79,7 @@ const SelectExit = ({ route, navigation }) => {
               station,
               exit: exits[exit_number],
             });
+            Speech.stop();
             Speech.speak(
               "submit, speak screen to hear the places near your chosen exit"
             );

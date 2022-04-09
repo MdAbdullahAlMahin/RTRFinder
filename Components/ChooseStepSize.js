@@ -41,6 +41,7 @@ const ChooseStepSize = ({ route, navigation }) => {
     if (!error) {
       writeItemToStorage(stepSize);
       navigation.navigate("Home", { stepSize: stepSize });
+      Speech.stop()
       Speech.speak("Submit");
     } else {
       alert("Incorrect step size! Step size must be between 0 to 1 metres.");
@@ -102,6 +103,7 @@ const ChooseStepSize = ({ route, navigation }) => {
             navigation.navigate(gobackto, {
               goto: gobackto === "Instructions" ? "Choose Step Size" : null,
             });
+            Speech.stop()
             Speech.speak("Go back");
           }}
         >

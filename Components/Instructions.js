@@ -25,8 +25,9 @@ const Instructions = ({ route, navigation }) => {
   const { goto } = route.params;
   return (
     <SafeAreaView style={styles.container}>
-      <View>
         {/* Instructions */}
+  
+        <View style={styles.parent2}>
         <TouchableOpacity
           activeOpacity={0.5}
           style={styles.button2}
@@ -37,7 +38,7 @@ const Instructions = ({ route, navigation }) => {
             2. On any screen, press the speak button on the top right to make
             the app narrate all the instructions. Now, every time you open the
             app, the home screen will have two buttons at the bottom, start
-            journey on the left and settings on the right.
+            journey on the right and settings on the left.
             3. Press start journey to start your journey and press settings to
             change your step size or hear this tutorial again, swipe left or
             press the arrow on the top to go back to the home screen.
@@ -65,6 +66,8 @@ const Instructions = ({ route, navigation }) => {
         >
           <Text style={styles.text}>Speak</Text>
         </TouchableOpacity>
+        </View>
+        <View style={styles.parent3}>
         <Text style={styles.normaltext}>How to use the app:</Text>
         <ScrollView>
           <Text style={styles.longtext}>
@@ -73,32 +76,29 @@ const Instructions = ({ route, navigation }) => {
             2. On any screen, press the speak button on the top right to make
             the app narrate all the instructions. Now, everytime you open the
             app, the home screen will have two buttons at the bottom, start
-            journey on the left and settings on the right. {"\n"}
+            journey on the right and settings on the left. {"\n"}
             3. Press start journey to start your journey and press settings to
-            change your step size or hear this tutorial again, swipe left or
-            press the arrow on the top to go back to the home screen {"\n"}
+            change your step size or hear this tutorial again, press the button on the bottom of the screen to go back to the homepage {"\n"}
             4. After you start your journey, type the name of the station you
-            are in and press return on the keyboard, then go to the next screen
-            by pressing the submit button at the bottom right{"\n"}
+            are in and go to the next screen
+            by pressing the submit button {"\n"}
             5. If you need to go back to the previous screen, press the back
-            button on the bottom left corner{"\n"}
+            button {"\n"}
             6. Choose your exit using the button at the bottom middle, then go
             to the next screen by pressing the submit button at the bottom right
             {"\n"}
-            7. Choose the mode you prefer using the button at the bottom middle,
-            then go to the next screen by pressing the submit button at the
-            bottom right{"\n"}
+            7. Choose the mode you prefer based on the spoken instructions {"\n"}
             8. The app will provide information about locations nearby, press
             the next button at the bottom right to continue{"\n"}
             9. Follow the directions, press the button on the bottom right to
             hear the next directions or press the button on the bottom left
             corner to hear the previous directions{"\n"}
-            10. If you need to end your journey early, press the top right
+            10. If you need to end your journey early, press the top middle
             button, if you need to call for help, press the top left button
             {"\n"}
             11. When you finish your journey, press the button on the bottom
             right to return to the homescreen{"\n"}
-            12. Call MTR hotline 2881 8888 for assistance{"\n"}
+            12. Call MTR hotline 2881 8888 for assistance in the station {"\n"}
           </Text>
         </ScrollView>
       </View>
@@ -181,8 +181,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     position: "absolute",
-    top: 35,
-    right: 15,
+    right: 0,
+    top: 10
+  },
+  parent3: {
+    position: "absolute",
+    top: 90,
   },
   button2: {
     marginTop: 30,

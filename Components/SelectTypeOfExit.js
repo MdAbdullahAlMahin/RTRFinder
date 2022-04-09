@@ -18,7 +18,7 @@ import * as Speech from "expo-speech";
 const SelectTypeOfExit = ({ route, navigation }) => {
   useEffect(() => {
     Speech.speak(
-      "Press Speak on the top right to hear the instructions." + exits_string
+      exits_string + "Choices are at the top of the screen. Press your choice to proceed."
     );
   }, []);
   var exits_string = "The choices are, from left to right, ";
@@ -66,7 +66,7 @@ const SelectTypeOfExit = ({ route, navigation }) => {
             );
           }}
         >
-          <Text style={styles.text}></Text>
+          <Text style={styles.text}>Speak</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.parent}>
@@ -150,8 +150,6 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderColor: "white",
-    width: "20%",
-    height: 50,
   },
   button: {
     alignItems: "center",

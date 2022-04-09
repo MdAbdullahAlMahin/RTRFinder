@@ -58,12 +58,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   image: {
-    width: 200,
-    height: 200,
+    width: 100,
+    height: 100,
     marginBottom: 20,
   },
   normaltext: {
-    fontSize: 20,
+    fontSize: 14,
     lineHeight: 21,
     // fontFamily: 'Helvetica',
     letterSpacing: 0.25,

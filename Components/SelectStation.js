@@ -27,6 +27,7 @@ const SelectStation = ({ route, navigation }) => {
       error = !stationExists(station);
       if (!error) {
         navigation.navigate("Select Exit", { stepSize, station });
+        Speech.stop();
         Speech.speak(
           "Submit, which exit do you wish to leave at? Current Exit: Ae"
         );
@@ -85,6 +86,7 @@ const SelectStation = ({ route, navigation }) => {
           style={styles.button}
           onPress={() => {
             navigation.navigate("Home", { stepSize });
+            Speech.stop();
             Speech.speak("Back");
           }}
         >
@@ -177,6 +179,8 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderColor: "white",
+    height: 50,
+    padding: 18,
   },
 });
 export default SelectStation;

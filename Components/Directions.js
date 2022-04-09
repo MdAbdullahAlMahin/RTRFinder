@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Button,
@@ -23,15 +23,20 @@ const Directions = ({ route, navigation }) => {
   ];
   const [curr, set_curr] = useState(0);
   const update_curr = (dir) => {
+    console.log(dir)
     var num = curr + dir;
     if (num < 0) {
       navigation.navigate("Select Type Of Exit", { stepSize, station, exit });
     } else if (num >= directions.length) {
       navigation.navigate("Home", { stepSize });
-    } else {
-      Speech.speak(directions[(curr + 1) % directions.length]);
+    }
+    else{
+      Speech.speak(directions[num])
     }
     set_curr(num);
+    console.log(curr);
+    console.log(directions[curr])
+    console.log(directions[curr+1]);
   };
 
   return (
@@ -43,9 +48,13 @@ const Directions = ({ route, navigation }) => {
             activeOpacity={0.5}
             onPress={() => {
               Linking.openURL(`tel:${phoneNumber}`);
+              Speech.stop()
+              Speech.speak(
+                "Call MTR hotline"
+              );
             }}
           >
-            <Text style={styles.text}>Call for Help</Text>
+            <Text style={styles.text}>Call</Text>
           </TouchableOpacity>
           {curr != directions.length - 1 ? (
             <TouchableOpacity
@@ -53,17 +62,22 @@ const Directions = ({ route, navigation }) => {
               activeOpacity={0.5}
               onPress={() => {
                 navigation.navigate("Home", { stepSize });
+                Speech.stop();
+                Speech.speak(
+                  "End journey early"
+                );
               }}
             >
-              <Text style={styles.text}>End Journey</Text>
+              <Text style={styles.text}>End</Text>
             </TouchableOpacity>
           ) : null}
           <TouchableOpacity
             activeOpacity={0.5}
             style={styles.button3}
             onPress={() => {
+              Speech.stop();
               Speech.speak(
-                "Speak screen to hear instructions on every screen, Bottom left of the screen to go back, bottom right to proceed. On this row, there are three buttons, This button is on the right, Press middle button to end journey, Press left button to call MTR hotline for help."
+                "Bottom left of the screen to go back, bottom right to proceed. On this row, there are three buttons, This button is on the right, Press middle button to end journey, Press left button to call MTR hotline for help."
               );
             }}
           >
@@ -76,38 +90,24 @@ const Directions = ({ route, navigation }) => {
       </View>
       <View style={styles.container2}>
         <View style={styles.parent}>
-          {curr !== 0 ? (
-            <TouchableOpacity
-              title="Previous"
-              style={styles.button}
-              onPress={() => {
-                Speech.speak("Previous");
-                update_curr(-1);
-              }}
-            >
-              <Text style={styles.text}>Previous</Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                update_curr(-1);
-                Speech.speak("Back");
-              }}
-            >
-              <Text style={styles.text}>Go Back</Text>
-            </TouchableOpacity>
-          )}
+        <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              Speech.stop();
+              Speech.speak("Back");
+              update_curr(-1);
+            }}
+          >
+            <Text style={styles.text}>
+              {curr !== 0 ? "Previous" : "Go Back"}
+            </Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
-            title={
-              curr === directions.length - 1
-                ? "End Journey"
-                : "Next Instruction"
-            }
             onPress={() => {
+              Speech.stop();
               Speech.speak("Next");
-              update_curr(1);
+              update_curr(+1);
             }}
           >
             <Text style={styles.text}>
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   },
   container2: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center'
   },
   parent: {
     flex: 1,
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderColor: "white",
-    width: "32%",
+    minWidth: "32%",
     height: 50,
   },
   text: {

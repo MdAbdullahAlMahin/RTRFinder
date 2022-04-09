@@ -24,7 +24,7 @@ const HomePage = ({ route, navigation }) => {
           style={styles.button2}
           onPress={() => {
             Speech.speak(
-              "Hello there! Press the button on the bottom left of the screen to start your journey, or configure your settings by clicking the button on the bottom right."
+              "Hello there! Press the button on the bottom right of the screen to start your journey, or configure your settings by clicking the button on the bottom left."
             );
           }}
         >
@@ -45,7 +45,8 @@ const HomePage = ({ route, navigation }) => {
           style={styles.button}
           onPress={() => {
             navigation.navigate("Settings", { stepSize: stepSize });
-            Speech.speak("Settings");
+            Speech.stop();
+            Speech.speak("Settings, bottom left to change step size, bottom right to hear instructions, top to go back to home page");
           }}
         >
           <Text style={styles.text}>Settings</Text>
@@ -55,6 +56,7 @@ const HomePage = ({ route, navigation }) => {
           style={styles.button}
           onPress={() => {
             navigation.navigate("Select Station", { stepSize: stepSize });
+            Speech.stop();
             Speech.speak("start journey, type in your station");
           }}
         >

@@ -23,6 +23,7 @@ const Settings = ({ route, navigation }) => {
           style={styles.button2}
           onPress={() => {
             navigation.navigate("Home", { stepSize });
+            Speech.stop()
             Speech.speak("Back to home");
           }}
         >
@@ -36,6 +37,7 @@ const Settings = ({ route, navigation }) => {
           style={styles.button}
           onPress={() => {
             navigation.navigate("Choose Step Size", { gobackto: "Settings" });
+            Speech.stop()
             Speech.speak("Change step size");
           }}
         >
@@ -45,6 +47,7 @@ const Settings = ({ route, navigation }) => {
           activeOpacity={0.5}
           style={styles.button}
           onPress={() => {
+            Speech.stop()
             navigation.navigate("Instructions", { goto: "Settings" });
             // Speech.speak("Listen to instructions by using speak screen");
           }}
