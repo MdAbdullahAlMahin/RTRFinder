@@ -40,19 +40,19 @@ const SelectTypeOfExit = ({ route, navigation }) => {
     var map = useMap(station, stepSize);
     var dir = map.findExit(exit, "Escalator");
     navigation.navigate("Directions", { dir, stepSize, station, exit });
-    Speech.speak("Escalator");
+    Speech.speak("Escalator, Now step out of the escalator and start your journey ");
   };
   const navigateEl = () => {
     var map = useMap(station, stepSize);
     var dir = map.findExit(exit, "Elevator");
     navigation.navigate("Directions", { dir, stepSize, station, exit });
-    Speech.speak("Elevator");
+    Speech.speak("Elevator, Now step out of the escalator and start your journey");
   };
   const navigateSt = () => {
     var map = useMap(station, stepSize);
     var dir = map.findExit(exit, "Stairs");
     navigation.navigate("Directions", { dir, stepSize, station, exit });
-    Speech.speak("Stairs");
+    Speech.speak("Stairs, Now step out of the escalator and start your journey");
   };
   return (
     <SafeAreaView style={styles.container}>
